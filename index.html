@@ -122,8 +122,40 @@ class: center, middle, inverse
 ---
 layout: false
 class: center, middle
+##What are streams?
+####A stream is a sequence of elements that can be lazily processed with sequential and parallel aggregate operations
+
+---
+##Collections vs Streams
+* Collections
+    - Dynamic in memory data structure
+    - Pre computed
+    - Always fixed length
+    - Require external iteration
+* Streams
+    - Fixed data structure with external storage
+    - Lazily computed
+    - Can be infinite
+    - Require internal iteration
+
+---
+##External vs Internal iteration
+* External - for, while, do, etc...
+    - Code turns into how iteration occurs
+    - You write the internals of your iterations
+    - You have complete control
+    - Procedural
+* Internal - map, reduce, filter, collect
+    - Code cares about what's happening instead of how
+    - You have no control
+    - You supply a function to be executed during iteration
+    - Functional
+
+---
+layout: false
+class: center, middle
 ##Examples
-####Sum of all positive transactions (net income)
+####Sum of all positive transactions
 
 ---
 ##Pre Java 8
@@ -134,22 +166,16 @@ class Transaction {
     Date date;
 }
 
-List<Transaction> transactions = getTranscationsForAccount(id);
+List<Transaction> transactions = getTransactionsForAccount(id);
 
-double netIncome = 0;
+double total = 0;
 for (Transaction t : transactions) {
     if (t.amount > 0) {
-        netIncome += t.amount;
+        total += t.amount;
     }
 }
 ```
-
----
-###Pre Java 8
-* Verbose
-* Expresses how, not what
-* Single threaded
-
+total
 ---
 ##Java 8 streams
 ```java
@@ -159,7 +185,7 @@ class Transaction {
     Date date;
 }
 
-double netIncome = getTransactionsForAccount(id)
+double total = getTransactionsForAccount(id)
         .stream()
         .filter(t -> t.amount > 0)
         .mapToDouble(t -> return t.amount)
@@ -260,36 +286,6 @@ List<String> strAmounts = getTransactionsForAccount(id)
         .collect(Collectors.toList());                                  //convert to list
 ```
 
----
-class: center, middle
-##What are streams?
-####A stream is a sequence of elements that can be lazily processed with sequential and parallel aggregate operations
-
----
-##Collections vs Streams
-* Collections
-    - Dynamic in memory data structure
-    - Pre computed
-    - Always fixed length
-    - Require external iteration
-* Streams
-    - Fixed data structure with external storage
-    - Lazily computed
-    - Can be infinite
-    - Require internal iteration
-
----
-##External vs Internal iteration
-* External - for, while, do, etc...
-    - Code turns into how iteration occurs
-    - You write the internals of your iterations
-    - You have complete control
-    - Procedural
-* Internal - map, reduce, filter, collect
-    - Code cares about what's happening instead of how
-    - You have no control
-    - You supply a function to be executed during iteration
-    - Functional
 
 ---
 class: center, middle
@@ -345,6 +341,7 @@ mapping 2
 filtering 3
 filtering 4
 mapping 4
+4, 16
 </pre>
 
 ---
