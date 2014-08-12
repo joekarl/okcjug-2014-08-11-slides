@@ -438,7 +438,16 @@ class: middle, center
 
 ---
 ##Stream Operations with Parallel Streams
-* Stateful/Short Circuit operations have indeterminate outcomes
+* Operations have indeterminate ordering outcomes
+
+```java
+List<Integer> ints = Arrays.asList(34,5,26,37,2,326,7,8,54,2,23,35,3,78,6,7,2,2,32,6,7,8,53);
+Optional<Integer> x = ints.stream()
+        .findAny();
+
+System.out.println(x);
+```
+##34
 
 ```java
 List<Integer> ints = Arrays.asList(34,5,26,37,2,326,7,8,54,2,23,35,3,78,6,7,2,2,32,6,7,8,53);
@@ -448,12 +457,21 @@ Optional<Integer> x = ints.parallelStream()
 System.out.println(x);
 ```
 
+##????
+
+---
+##Real world uses
+* Data processing
+* Simple iteration of collections
+* Transformation of a collection of objects
+* Simplifying complex dynamic sorting
+
 ---
 ##Gotchas
 * Reusing streams (**DON'T**)
 * Accidentally creating infinite streams
 * Mixing up order of operations
-* Modifying the collection backing a finite stream
+* Modifying the collection backing a stream
 * Blocking the common fork join pool
 * Using parallel streams where you shouldn't
 
